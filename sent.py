@@ -53,7 +53,7 @@ def getArticleCount(fileName):
     modalStrongCount = 0
     litigiousCount = 0
     uncertaintyCount = 0
-
+    
     positiveCount = getCount(freqDist,positiveList)
     negativeCount = getCount(freqDist,negativeList)
     modalWeakCount = getCount(freqDist,modalWeakList)
