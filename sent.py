@@ -84,5 +84,5 @@ def getArticleCount(fileName):
         file_writer.writerow([x for x in countList])
         file_writer.writerow([x for x in countList])
 
-getArticleCount('1.txt')
+getArticleCount('2.txt')
 
