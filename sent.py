@@ -53,7 +53,7 @@ def getArticleCount(fileName):
     modalStrongCount = 0
     litigiousCount = 0
     uncertaintyCount = 0
-
+    
     positiveCount = getCount(freqDist,positiveList)
     negativeCount = getCount(freqDist,negativeList)
     modalWeakCount = getCount(freqDist,modalWeakList)
@@ -84,5 +84,5 @@ def getArticleCount(fileName):
         file_writer.writerow([x for x in countList])
         file_writer.writerow([x for x in countList])
 
-getArticleCount('1.txt')
+getArticleCount('2.txt')
 
