@@ -11,7 +11,7 @@ for i in range(1,200):
 #	print out
 	if out != '':
 		if out.find('The New York Times Company. All Rights Reserved.') != -1:
-			print 'New page',i
+			print 'Analysing Page',i
 			
 			# Open a file
 			with open("split_pages.txt", "a") as fo:
@@ -21,7 +21,7 @@ for i in range(1,200):
 				# Close opend file
 				fo.close()
 		else:
-			print 'Previos Page'
+			print 'Analysing Page',i
 			split_pages =split_pages-1
 			with open('split_pages.txt', "a") as myfile:
 				myfile.write(out)
@@ -33,13 +33,14 @@ full_paper = fileReader.read()
 
 split_paper = full_paper.split('\n#################################################\n')
 for i in range(1,len(split_paper)):
-	print split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1]
+	#print split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1]
 	titCountList = getArticleCount(split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1][0])
 	artCountList = getArticleCount(split_paper[i].split('The New York Times Company. All Rights Reserved.')[1])
 	forWriteToFile = split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1]
 	with open('result.csv', 'a') as result_file:
 		file_writer = csv.writer(result_file)
 		#for i in range(item_length):
+		file_writer.writerow(['Article:'+str(i)])
 		file_writer.writerow([x for x in forWriteToFile])
 		file_writer.writerow([x for x in titCountList])
 		file_writer.writerow([x for x in artCountList])
