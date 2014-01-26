@@ -38,12 +38,10 @@ def getCount(freqDist,sentList):
             count += freqDist[word]
     return count
 
-def getArticleCount(fileName):
+def getArticleCount(split_paper):
     # TO Open up the file handling 
     countList = []
-    f = open(fileName)
-    linesArticle = f.read()
-    lowerArticle = linesArticle.lower()
+    lowerArticle = split_paper.lower()
     wordsArticle = lowerArticle.split()
     freqDist = nltk.FreqDist(wordsArticle)
     
@@ -78,11 +76,4 @@ def getArticleCount(fileName):
     countList.append(litigiousCount)
     countList.append(uncertaintyCount)
     
-    with open('result.csv', 'wb') as result_file:
-        file_writer = csv.writer(result_file)
-        #for i in range(item_length):
-        file_writer.writerow([x for x in countList])
-        file_writer.writerow([x for x in countList])
-
-getArticleCount('1.txt')
-
+    return countList

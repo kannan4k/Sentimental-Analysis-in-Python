@@ -1,5 +1,6 @@
 import subprocess
 import os
+import sent
 split_pages = 1
 hashDelimiter = "\n#################################################\n"
 fo = open('split_pages.txt', 'wb')
@@ -30,3 +31,14 @@ full_paper = fileReader.read()
 split_paper = full_paper.split('\n#################################################\n')
 for i in range(len(split_paper)):
 	print split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1]
+	titCountList = getArticleCount(split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1][0])
+	artCountList = getArticleCount(split_paper[1].split('The New York Times Company. All Rights Reserved.')[1])
+	forWriteToFile = split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1]
+	with open('result.csv', 'wb') as result_file:
+		file_writer = csv.writer(result_file)
+		#for i in range(item_length):
+		file_writer.writerow([x for x in forWriteToFile],[x for x in titCountList],[x for x in artCountList])
+		
+		
+
+	
