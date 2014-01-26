@@ -5,13 +5,14 @@ split_pages = 1
 hashDelimiter = "\n#################################################\n"
 fo = open('split_pages.txt', 'wb')
 fo.close()
-for i in range(1,15):
+for i in range(1,200):
 	p = subprocess.Popen(['pdf2txt.py', '-p',str(i),'carlo.pdf'], stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 	out, err = p.communicate()
 #	print out
 	if out != '':
 		if out.find('The New York Times Company. All Rights Reserved.') != -1:
-			print 'New page'
+			print 'New page',i
+			
 			# Open a file
 			with open("split_pages.txt", "a") as fo:
 				fo.write(hashDelimiter)
