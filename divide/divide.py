@@ -29,6 +29,7 @@ file_writer = open('result.csv', 'wb')
 file_writer.close()
 fileReader = open('split_pages.txt')
 full_paper = fileReader.read()
+
 split_paper = full_paper.split('\n#################################################\n')
 for i in range(1,len(split_paper)):
 	print split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1]
@@ -41,7 +42,7 @@ for i in range(1,len(split_paper)):
 		file_writer.writerow([x for x in forWriteToFile])
 		file_writer.writerow([x for x in titCountList])
 		file_writer.writerow([x for x in artCountList])
-		file_writer.writerow('##############################################################')
+
 		
 		
 	
