@@ -20,12 +20,7 @@ def returnList(fileName):
             sys.exit()
     return wordsList
 
-positiveList = returnList('positive.txt')
-negativeList = returnList('negative.txt')
-modalWeakList = returnList('modal_weak.txt')
-modalStringList = returnList('modal_strong.txt')
-litigiousList = returnList('litigious.txt')
-uncertaintyList =  returnList('uncertainty')
+
 #Counter Initialization
 
 # Using Python Natural Language ToolKit to generate the Sentimental Analysis
@@ -52,6 +47,13 @@ def getArticleCount(split_paper):
     litigiousCount = 0
     uncertaintyCount = 0
     
+    positiveList = returnList('positive.txt')
+    negativeList = returnList('negative.txt')
+    modalWeakList = returnList('modal_weak.txt')
+    modalStringList = returnList('modal_strong.txt')
+    litigiousList = returnList('litigious.txt')
+    uncertaintyList =  returnList('uncertainty')
+
     positiveCount = getCount(freqDist,positiveList)
     negativeCount = getCount(freqDist,negativeList)
     modalWeakCount = getCount(freqDist,modalWeakList)
