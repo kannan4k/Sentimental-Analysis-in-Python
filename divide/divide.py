@@ -1,7 +1,10 @@
 import subprocess
 import os
 from sent import *
+ 
 def divide(fileName):
+	split_pages = 1
+	print fileName
 	hashDelimiter = "\n#################################################\n"
 	fo = open(fileName.split('.')[0]+'.txt', 'wb')
 	fo.close()
@@ -28,7 +31,7 @@ def divide(fileName):
 	
 	file_writer = open(fileName.split('.')[0]+'.csv', 'wb')
 	file_writer.close()
-	fileReader = open(fileName.split('.')[0])
+	fileReader = open(fileName.split('.')[0]+'.txt')
 	full_paper = fileReader.read()
 	
 	split_paper = full_paper.split('\n#################################################\n')
@@ -43,13 +46,11 @@ def divide(fileName):
 			file_writer.writerow(['Article:'+str(i)])
 			mergedList = forWriteToFile+titCountList+artCountList
 			file_writer.writerow([x for x in mergedList])
+	return 1
 
 
 
 
-		
-fileReader = open('fileNames.txt')
-names = fileReader.read()
-nameList = names.split()
-for name in NameList:
-	divide(name)
+# Enter Your File names like the below format		
+divide('carlo.pdf')
+divide('sample.pdf')
