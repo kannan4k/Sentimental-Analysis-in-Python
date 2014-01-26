@@ -63,12 +63,12 @@ def getArticleCount(split_paper):
     
     #Getting the values for each sentiment
     #Printing the values
-    print 'Positive Count:', positiveCount
-    print 'Negative Count:', negativeCount
-    print 'Modal Weak Count:', modalWeakCount
-    print 'Modal Strong Count:', modalStrongCount
-    print 'Litigious Count:', litigiousCount
-    print 'Uncertainty Count:', uncertaintyCount
+    #print 'Positive Count:', positiveCount
+    #print 'Negative Count:', negativeCount
+    #print 'Modal Weak Count:', modalWeakCount
+    #print 'Modal Strong Count:', modalStrongCount
+    #print 'Litigious Count:', litigiousCount
+    #print 'Uncertainty Count:', uncertaintyCount
 
 
     countList.append(positiveCount)
