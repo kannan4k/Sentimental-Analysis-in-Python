@@ -47,9 +47,9 @@ def getNegationCount(wordsArticle, freqDist, negationList):
                 if item == word:
                     position += 1
                     checkWord = wordsArticle[position]
-                    if(positiveList.index(checkWord) >= 0):
+                    if checkWord in positiveList:
                         positiveNegCount += 1
-                    elif(negativeList.index(checkWord) >= 0):
+                    if checkWord in negativeList:
                         negativeNegCount += 1  
     print positiveNegCount, negativeNegCount
     return (positiveNegCount, negativeNegCount)
