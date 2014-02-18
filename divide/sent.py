@@ -61,6 +61,7 @@ def getArticleCount(split_paper):
     countList = []
     lowerArticle = split_paper.lower()
     wordsArticle = lowerArticle.split()
+    freqDist = nltk.FreqDist(wordsArticle)
     
     positiveCount = 0
     negativeCount = 0
