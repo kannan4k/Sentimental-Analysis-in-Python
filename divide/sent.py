@@ -45,13 +45,28 @@ def getNegationCount(wordsArticle, freqDist, negationList):
             negativeList = returnList('negative.txt')  
             for position, item in enumerate(wordsArticle):
                 if item == word:
-                    position += 1
-                    checkWord = wordsArticle[position]
-                    if checkWord in positiveList:
-                        positiveNegCount += 1
-                    if checkWord in negativeList:
-                        negativeNegCount += 1  
-    #print positiveNegCount, negativeNegCount
+                    if wordsArticle[position+1]:
+                        checkWord1 = wordsArticle[position+1]
+                        if checkWord1 in positiveList:
+                            positiveNegCount += 1
+                        if checkWord1 in negativeList:
+                            negativeNegCount += 1
+                        
+                    if wordsArticle[position+2]:
+                        checkWord2 = wordsArticle[position+2]
+                        if checkWord2 in positiveList:
+                            positiveNegCount += 1
+                        if checkWord2 in negativeList:
+                            negativeNegCount += 1
+                            
+                    if wordsArticle[position+3]:
+                        checkWord3 = wordsArticle[position+3]
+                        if checkWord3 in positiveList:
+                            positiveNegCount += 1
+                        if checkWord3 in negativeList:
+                            negativeNegCount += 1 
+ 
+    print positiveNegCount, negativeNegCount
     return (positiveNegCount, negativeNegCount)
 
 

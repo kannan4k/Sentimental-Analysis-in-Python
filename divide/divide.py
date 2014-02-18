@@ -24,7 +24,7 @@ def divide(fileName):
 					# Close opend file
 					fo.close()
 			else:
-				print 'Analysing Page',i
+				print 'Reading Page',i
 				split_pages =split_pages-1
 				with open(fileName.split('.')[0]+'.txt', "a") as myfile:
 					myfile.write(out)
