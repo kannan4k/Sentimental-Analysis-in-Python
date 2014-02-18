@@ -14,7 +14,7 @@ def divide(fileName):
 	#	print out
 		if out != '':
 			if out.find('The New York Times Company. All Rights Reserved.') != -1:
-				print 'Analysing Page',i
+				print 'Reading Page',i
 				
 				# Open a file
 				with open(fileName.split('.')[0]+".txt", "a") as fo:
@@ -36,6 +36,7 @@ def divide(fileName):
 	
 	split_paper = full_paper.split('\n#################################################\n')
 	for i in range(1,len(split_paper)):
+		print 'Analyzing Page',i
 		#print split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1]
 		titCountList = getArticleCount(split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1][0])
 		artCountList = getArticleCount(split_paper[i].split('The New York Times Company. All Rights Reserved.')[1])
@@ -51,4 +52,9 @@ def divide(fileName):
 
 
 # Enter Your File names like the below format		
-divide('carlo.pdf')
+#divide('carlo.pdf')
+
+divide('US_NTY_MOR_01.pdf')
+
+
+
