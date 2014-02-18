@@ -39,6 +39,7 @@ def getNegationCount(wordsArticle, freqDist, negationList):
     positiveNegCount = 0
     negativeNegCount = 0
     for word in negationList:
+        print word
         if freqDist.has_key(word):
             positiveList = returnList('positive.txt')
             negativeList = returnList('negative.txt')  
@@ -49,7 +50,8 @@ def getNegationCount(wordsArticle, freqDist, negationList):
                     if(positiveList.index(checkWord) >= 0):
                         positiveNegCount += 1
                     elif(negativeList.index(checkWord) >= 0):
-                        negativeNegCount += 1    
+                        negativeNegCount += 1  
+    print positiveNegCount, negativeNegCount
     return (positiveNegCount, negativeNegCount)
 
 
