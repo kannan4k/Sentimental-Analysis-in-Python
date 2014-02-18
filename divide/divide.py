@@ -24,7 +24,7 @@ def divide(fileName):
 					# Close opend file
 					fo.close()
 			else:
-				print 'Analysing Page',i
+				print 'Reading Page',i
 				split_pages =split_pages-1
 				with open(fileName.split('.')[0]+'.txt', "a") as myfile:
 					myfile.write(out)
@@ -36,7 +36,7 @@ def divide(fileName):
 	
 	split_paper = full_paper.split('\n#################################################\n')
 	for i in range(1,len(split_paper)):
-		print 'Analyzing Page',i
+		print 'Analyzing Article',i
 		#print split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1]
 		titCountList = getArticleCount(split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1][0])
 		artCountList = getArticleCount(split_paper[i].split('The New York Times Company. All Rights Reserved.')[1])
