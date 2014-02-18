@@ -33,12 +33,32 @@ def getCount(freqDist,sentList):
             count += freqDist[word]
     return count
 
+
+#To Count the words in each sentiment 
+def getNegationCount(wordsArticle, freqDist, negationList):
+    positiveNegCount = 0
+    negativeNegCount = 0
+    for word in negationList:
+        if freqDist.has_key(word):
+            positiveList = returnList('positive.txt')
+            negativeList = returnList('negative.txt')  
+            for position, item in enumerate(wordsArticle):
+                if item == word:
+                    position += 1
+                    checkWord = wordsArticle[position]
+                    if(positiveList.index(checkWord) >= 0):
+                        positiveNegCount += 1
+                    elif(negativeList.index(checkWord) >= 0):
+                        negativeNegCount += 1    
+    return (positiveNegCount, negativeNegCount)
+
+
+
 def getArticleCount(split_paper):
     # TO Open up the file handling 
     countList = []
     lowerArticle = split_paper.lower()
     wordsArticle = lowerArticle.split()
-    freqDist = nltk.FreqDist(wordsArticle)
     
     positiveCount = 0
     negativeCount = 0
@@ -47,6 +67,7 @@ def getArticleCount(split_paper):
     litigiousCount = 0
     uncertaintyCount = 0
     
+    negationList = returnList('negation.txt')
     positiveList = returnList('positive.txt')
     negativeList = returnList('negative.txt')
     modalWeakList = returnList('modal_weak.txt')
@@ -54,6 +75,7 @@ def getArticleCount(split_paper):
     litigiousList = returnList('litigious.txt')
     uncertaintyList =  returnList('uncertainty')
 
+    positiveNegCount, negativeNegCount = getNegationCount(wordsArticle, freqDist, negationList)
     positiveCount = getCount(freqDist,positiveList)
     negativeCount = getCount(freqDist,negativeList)
     modalWeakCount = getCount(freqDist,modalWeakList)

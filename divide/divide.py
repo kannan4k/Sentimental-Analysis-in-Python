@@ -8,7 +8,7 @@ def divide(fileName):
 	hashDelimiter = "\n#################################################\n"
 	fo = open(fileName.split('.')[0]+'.txt', 'wb')
 	fo.close()
-	for i in range(1,10):
+	for i in range(1,300):
 		p = subprocess.Popen(['pdf2txt.py', '-p',str(i),fileName], stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 		out, err = p.communicate()
 	#	print out
@@ -43,7 +43,6 @@ def divide(fileName):
 		with open(fileName.split('.')[0]+'.csv', 'a') as result_file:
 			file_writer = csv.writer(result_file)
 			#for i in range(item_length):
-			file_writer.writerow(['Article:'+str(i)])
 			mergedList = forWriteToFile+titCountList+artCountList
 			file_writer.writerow([x for x in mergedList])
 	return 1
@@ -53,4 +52,3 @@ def divide(fileName):
 
 # Enter Your File names like the below format		
 divide('carlo.pdf')
-divide('sample.pdf')
