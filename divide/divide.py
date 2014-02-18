@@ -8,7 +8,7 @@ def divide(fileName):
 	hashDelimiter = "\n#################################################\n"
 	fo = open(fileName.split('.')[0]+'.txt', 'wb')
 	fo.close()
-	for i in range(1,300):
+	for i in range(1,500):
 		p = subprocess.Popen(['pdf2txt.py', '-p',str(i),fileName], stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 		out, err = p.communicate()
 	#	print out
