@@ -39,7 +39,7 @@ def getNegationCount(wordsArticle, freqDist, negationList):
     positiveNegCount = 0
     negativeNegCount = 0
     for word in negationList:
-        print word
+        #print word
         if freqDist.has_key(word):
             positiveList = returnList('positive.txt')
             negativeList = returnList('negative.txt')  
@@ -51,7 +51,7 @@ def getNegationCount(wordsArticle, freqDist, negationList):
                         positiveNegCount += 1
                     if checkWord in negativeList:
                         negativeNegCount += 1  
-    print positiveNegCount, negativeNegCount
+    #print positiveNegCount, negativeNegCount
     return (positiveNegCount, negativeNegCount)
 
 
@@ -102,5 +102,7 @@ def getArticleCount(split_paper):
     countList.append(modalStrongCount)
     countList.append(litigiousCount)
     countList.append(uncertaintyCount)
+    countList.append(positiveNegCount)
+    countList.append(negativeNegCount)
     
     return countList
