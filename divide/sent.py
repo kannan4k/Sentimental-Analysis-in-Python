@@ -70,7 +70,7 @@ def getNegationCount(wordsArticle, freqDist, negationList):
                     pass
                 
  
-    print positiveNegCount, negativeNegCount
+    #print positiveNegCount, negativeNegCount
     return (positiveNegCount, negativeNegCount)
 
 
