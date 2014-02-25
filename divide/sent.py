@@ -44,27 +44,31 @@ def getNegationCount(wordsArticle, freqDist, negationList):
             positiveList = returnList('positive.txt')
             negativeList = returnList('negative.txt')  
             for position, item in enumerate(wordsArticle):
-                if item == word:
-                    if wordsArticle[position+1]:
-                        checkWord1 = wordsArticle[position+1]
-                        if checkWord1 in positiveList:
-                            positiveNegCount += 1
-                        if checkWord1 in negativeList:
-                            negativeNegCount += 1
-                        
-                    if wordsArticle[position+2]:
-                        checkWord2 = wordsArticle[position+2]
-                        if checkWord2 in positiveList:
-                            positiveNegCount += 1
-                        if checkWord2 in negativeList:
-                            negativeNegCount += 1
+                try:
+                    if item == word:
+                        if wordsArticle[position+1]:
+                            checkWord1 = wordsArticle[position+1]
+                            if checkWord1 in positiveList:
+                                positiveNegCount += 1
+                            if checkWord1 in negativeList:
+                                negativeNegCount += 1
                             
-                    if wordsArticle[position+3]:
-                        checkWord3 = wordsArticle[position+3]
-                        if checkWord3 in positiveList:
-                            positiveNegCount += 1
-                        if checkWord3 in negativeList:
-                            negativeNegCount += 1 
+                        if wordsArticle[position+2]:
+                            checkWord2 = wordsArticle[position+2]
+                            if checkWord2 in positiveList:
+                                positiveNegCount += 1
+                            if checkWord2 in negativeList:
+                                negativeNegCount += 1
+                                
+                        if wordsArticle[position+3]:
+                            checkWord3 = wordsArticle[position+3]
+                            if checkWord3 in positiveList:
+                                positiveNegCount += 1
+                            if checkWord3 in negativeList:
+                                negativeNegCount += 1 
+                except: 
+                    pass
+                
  
     print positiveNegCount, negativeNegCount
     return (positiveNegCount, negativeNegCount)
