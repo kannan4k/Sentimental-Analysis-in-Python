@@ -5,6 +5,8 @@ from sent import *
 def divide(fileName):
 	split_pages = 1
 	print fileName
+	fileList = []
+	fileList.append(fileName)
 	hashDelimiter = "\n#################################################\n"
 	fo = open(fileName.split('.')[0]+'.txt', 'wb')
 	fo.close()
@@ -41,10 +43,11 @@ def divide(fileName):
 		titCountList = getArticleCount(split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1][0])
 		artCountList = getArticleCount(split_paper[i].split('The New York Times Company. All Rights Reserved.')[1])
 		forWriteToFile = split_paper[i].split('The New York Times\n')[0].split('\n')[-5:-1]
+		forWriteToFileList = [x.replace(',',' ') for x in forWriteToFile]
 		with open(fileName.split('.')[0]+'.csv', 'a') as result_file:
 			file_writer = csv.writer(result_file)
 			#for i in range(item_length):
-			mergedList = forWriteToFile+titCountList+artCountList
+			mergedList = fileList+forWriteToFileList+titCountList+artCountList
 			file_writer.writerow([x for x in mergedList])
 	return 1
 
