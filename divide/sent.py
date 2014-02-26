@@ -8,6 +8,7 @@ import csv
 
 # Function to return the file contents as List
 def returnList(fileName):
+    ''' This function will convert the words in the corresponding file (positive.txt) to Python List of words'''
     wordsList = []
     if os.path.exists(fileName):
         try:
@@ -27,6 +28,7 @@ def returnList(fileName):
 
 #To Count the words in each sentiment 
 def getCount(freqDist,sentList):
+    '''It is counting the positive and other sentimental words in the given nltk freqdistribution dictionary'''
     count = 0
     for word in sentList:
         if freqDist.has_key(word):
@@ -36,6 +38,7 @@ def getCount(freqDist,sentList):
 
 #To Count the words in each sentiment 
 def getNegationCount(wordsArticle, freqDist, negationList):
+    ''' To get the positive and negative negation counts for the given input after preprocessing'''
     positiveNegCount = 0
     negativeNegCount = 0
     for word in negationList:
@@ -76,11 +79,11 @@ def getNegationCount(wordsArticle, freqDist, negationList):
 
 
 def getArticleCount(split_paper):
-    # TO Open up the file handling 
+    ''' It is converting the each article in to words in a python list and calling the corresponding count functions which will return the counts''' 
     countList = []
-    lowerArticle = split_paper.lower()
-    wordsArticle = lowerArticle.split()
-    freqDist = nltk.FreqDist(wordsArticle)
+    lowerArticle = split_paper.lower() #Converting to lower chars
+    wordsArticle = lowerArticle.split() #splitiing each and every word based on delimiters or space
+    freqDist = nltk.FreqDist(wordsArticle) # Using nltk to calculate frequency distribution
     
     positiveCount = 0
     negativeCount = 0
@@ -90,7 +93,7 @@ def getArticleCount(split_paper):
     uncertaintyCount = 0
     
     negationList = returnList('negation.txt')
-    positiveList = returnList('positive.txt')
+    positiveList = returnList('positive.txt') #Callinn returnList fnction to create list of words
     negativeList = returnList('negative.txt')
     modalWeakList = returnList('modal_weak.txt')
     modalStringList = returnList('modal_strong.txt')
@@ -98,7 +101,7 @@ def getArticleCount(split_paper):
     uncertaintyList =  returnList('uncertainty')
 
     positiveNegCount, negativeNegCount = getNegationCount(wordsArticle, freqDist, negationList)
-    positiveCount = getCount(freqDist,positiveList)
+    positiveCount = getCount(freqDist,positiveList) #Calling the getCount to get the positive count of a article or title. Below ones are same
     negativeCount = getCount(freqDist,negativeList)
     modalWeakCount = getCount(freqDist,modalWeakList)
     modalStrongCount = getCount(freqDist,modalStringList)
