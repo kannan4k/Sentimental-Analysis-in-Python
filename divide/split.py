@@ -1,26 +1,6 @@
 #!/usr/bin/env python
-# encoding: utf-8
-"""
-split_ln.py
-
-Created by Neal Caren on 2012-05-14.
-neal.caren@unc.edu
-
-Takes a downloaded plain text LexisNexis file and converts it into a CSV file.
-
-
-sample usage:
-$ python split_ln.py T*.txt
-Processing The_New_York_Times_TP_2012_1.txt
-Processing The_New_York_Times_TP_2012_2.txt
-Done
-
-$ python split_ln.py ap_tp_201201.txt
-Processing ap_tp_201201.txt
-Done
-
-"""
-
+# -*- coding: utf-8 -*-
+from sent import *
 
 
 def split_ln(fname):
@@ -28,60 +8,89 @@ def split_ln(fname):
     #Imort the two required modules
     import re
     import csv
-    outname=fname.replace(fname.split('.')[-1],'csv') #replace the extension with "csv"
+    outname=fname.replace(fname.split('.')[-1],'txt1') #replace the extension with "csv"
     #setup the output file. Maybe give the option for seperate text files, if desired.
-    outfile=open(outname,'wb')
-    writer = csv.writer(outfile)
+    
+    file_writer = open(fname.split('.')[0]+'.csv', 'wb')
+    file_writer.close()
+    
 
     lnraw=open(fname).read() #read the file
-
+    meta_tuple=('FILENAME','TITLE','BY','TITLE','EDITION')
        
-    workfile=re.sub('                Copyright .*?\\r\\n','ENDOFILE',lnraw) #silly hack to find the end of the documents
-    workfile=workfile.replace('\xef\xbb\xbf\r\n','') #clean up crud at the beginning of the file
+    workfile=re.sub('.*Copyright .*?\\n','ENDOFILE',lnraw) #silly hack to find the end of the documents
+    workfile=workfile.replace('\xef\xbb\xbf\n','') 
     workfile=workfile.split('ENDOFILE') #split the file into a list of documents.
-    workfile=[f for f in workfile if len(f.split('\r\n\r\n'))>2] #remove an blank rows
+    wrk = ' '.join(workfile)
     
+    
+
+
     #Figure out what special meta data is being reported
     meta_list=list(set(re.findall('\\n([A-Z][A-Z-]*?):',lnraw))) #Find them all
-    meta_list=[m for m in meta_list if float(lnraw.count(m))/len(workfile)>.20] #Keep only the commonly occuring ones
-    meta_tuple=('SEARCH_ROW','PUBLICATION','DATE','TITLE','EDITION')
     for item in meta_list:
         meta_tuple=meta_tuple+(item,)
-    writer.writerow(meta_tuple+('TEXT',))  
-        
-    #Begin loop over each file
+    #writer.writerow(meta_tuple+('TEXT',))  
+    temp=0
     for f in workfile:
+        print temp
+        temp+=1
+        byline=""
+        date=""
+        length=""
+        title=""
+        content=""
+    	match = re.search(r'.*BYLINE:(?P<byline>.*)', f)
+    	if match:
+            print "##################################################################################\n";
+            print "##################################################################################\n";
+            byline = match.groupdict()['byline']
+            #print byline
+
+        match = re.search(r'.*LOAD-DATE:(?P<date>.*)', f)
+        if match:
+            date = match.groupdict()['date']
+            #print date
+
+        match = re.search(r'.*LENGTH:(?P<length>.*)', f)
+        if match:
+            length = match.groupdict()['length']
+            #print length
+
         
-        #Split into lines, and clean up the hard returns at the end of each line. Also removes blank lines that the occasional copyright lines  
-        filessplit=[row.replace('\r\n',' ') for row in f.split('\r\n\r\n') if len(row)>0 and 'All Rights Reserved' not in row]
-        #The id number (from that search) is the first text in the first item of the list
-        docid=filessplit[0].lstrip().split(' ')[0]
-        dateedition=filessplit[2].lstrip()
-        date=dateedition.split(' ')[0]+' '+dateedition.split(' ')[1]+' '+dateedition.split(' ')[2].replace(',','')
-        edition= dateedition.replace(date,'').split('                         ')[-1].lstrip()
-        if 'GMT' in edition or ('day' in edition):
-            edition=''
-        title= filessplit[3]
-        publication=filessplit[1].lstrip()
-        #Extra the text and other information
-        text=''
-        meta_dict={k : '' for k in meta_list}
-        for line in filessplit:
-            if len(line)>0 and line[:2]!='  ' and line!=line.upper() and len(re.findall('^[A-Z][A-Z-]*?:',line))==0 and title not in line:
-                text=text.lstrip()+' '+line.replace('","','" , "')
-            else:
-                metacheck=re.findall('^([A-Z][A-Z-]*?):',line)
-                if len(metacheck)>0:
-                    if metacheck[0] in meta_list:
-                       meta_dict[metacheck[0]]=line.replace(metacheck[0]+': ','')  
+        match = re.findall(r'(?P<title>.*)LENGTH:', f,re.DOTALL)
+        if match:
+            title= match[0].rstrip().lstrip()
+            #print title
+
+        match = re.findall(r'LENGTH:(?P<content>.*)LOAD-DATE:', f,re.DOTALL)
+        if match:
+            content= match[0].rstrip().lstrip()
+            print content
+
+
+
+        titCountList=[]
+        artCountList=[]
+        forWriteToFile=[]
+        forWriteToFileList=[]
+        mergedList=[]
         
-        #Output the results to a csv file
-        meta_tuple=(docid,publication,date,title,edition)
-        for item in meta_list:
-            meta_tuple=meta_tuple+(meta_dict[item],)
-        writer.writerow(meta_tuple+(text,))        
-        #output.write(docid+'\t'+title+'\t'+text+'\n')   
-    print 'Wrote\t\t',outname
+        titCountList = getArticleCount(title) #Getting Title Count
+        artCountList = getArticleCount(content) #Getting Article Count
+        forWriteToFile = [fname,  byline, length, date]
+        forWriteToFileList = [x.replace(',',' ') for x in forWriteToFile] #Removing comma in the title and Author
+        with open(fname.split('.')[0]+'.csv', 'a') as result_file:
+            file_writer = csv.writer(result_file)
+            #for i in range(item_length):
+            mergedList = forWriteToFileList+titCountList+artCountList
+            file_writer.writerow([x for x in mergedList]) #Writing the results to the csv file
+
+            
+ 
+        
+    #writer.writerow(workfile)        
+    print 'Wrote\t\t',fname.split('.')[0]+'.csv'
     
 
 if __name__ == "__main__":
@@ -93,5 +102,5 @@ if __name__ == "__main__":
     else:
         for fname in flist:
             split_ln(fname)
-        print 'Done'
+        
     

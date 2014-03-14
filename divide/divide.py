@@ -62,7 +62,7 @@ def divide(fileName):
 # Enter Your File names like the below format		
 #divide('carlo.pdf')
 
-divide('US_NTY_MOR_01.pdf')
+divide('sample.pdf')
 
 
 
